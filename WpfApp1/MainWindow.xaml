@@ -5,7 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="MainWindow" Background="Transparent" ShowInTaskbar="False" AllowsTransparency="True" WindowStyle="None" WindowState="Maximized" 
+        GotFocus="Window_GotFocus"
+        MouseDown="Window_MouseDown"
+        xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
+        Title="MainWindow" ShowInTaskbar="False" AllowsTransparency="True" WindowStyle="None" WindowState="Maximized" Background="{x:Null}" 
         >
     <Window.Resources>
         <Style x:Key="{x:Type ListBoxItem}"
@@ -32,7 +35,7 @@
                                                 Storyboard.TargetProperty="(Panel.Background).
                     (SolidColorBrush.Color)">
                                                 <EasingColorKeyFrame KeyTime="0"
-                                         Value="#FFAAAAAA" />
+                                         Value="Transparent" />
                                             </ColorAnimationUsingKeyFrames>
                                         </Storyboard>
                                     </VisualState>
@@ -42,7 +45,7 @@
                                                 Storyboard.TargetProperty="(Panel.Background).
                     (SolidColorBrush.Color)">
                                                 <EasingColorKeyFrame KeyTime="0"
-                                         Value="#FFAAAAAA" />
+                                         Value="Transparent" />
                                             </ColorAnimationUsingKeyFrames>
                                         </Storyboard>
                                     </VisualState>
@@ -61,32 +64,41 @@
             <ColumnDefinition Width="4*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <ListBox Grid.Column="1" x:Name="ls" Background="Transparent">
+        <ListBox Grid.Column="1" x:Name="ls" Background="{x:Null}" Focusable="False">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <WrapPanel  fw:PointerTracker.Enabled="True" Background="#01000000" HorizontalAlignment="Center" IsItemsHost="True" VerticalAlignment="Center">
+                        <WrapPanel.ContextMenu>
+                            <ContextMenu StaysOpen="true">
+                                <MenuItem Header="Настройки"/>
+                                <MenuItem Header="Выключить" Click="MenuItem_Click"/>
+                            </ContextMenu>
+                        </WrapPanel.ContextMenu>
+                    </WrapPanel>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Button Height="200" Margin="5" Width="200" Click="Button_Click" BorderThickness="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Style="{StaticResource AccentButtonStyle}" Background="#A000">
-                        <Button.Content>
-                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <Image Source="{Binding image}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding name}" Grid.Row="2" Grid.ColumnSpan="3"/>
-                            </Grid>
-                        </Button.Content>
-                    </Button>
+                    <Grid Tag="{Binding uri}" Height="200" Margin="5" Background="#A000" Width="200">
+                        <Button MouseDown="Button_MouseDown" BorderThickness="3" Click="Button_Click" Tag="{Binding uri}" Style="{StaticResource ButtonRevealStyle}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="Transparent">
+                            <Button.Content>
+                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="3*"/>
+                                        <RowDefinition Height="2*"/>
+                                        <RowDefinition Height="3*"/>
+                                    </Grid.RowDefinitions>
+                                    <Image Source="{Binding image}" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding name}" Grid.Row="2" Grid.ColumnSpan="3"/>
+                                </Grid>
+                            </Button.Content>
+                        </Button>
+                    </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

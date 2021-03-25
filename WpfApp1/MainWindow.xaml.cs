@@ -32,31 +32,7 @@ namespace WpfApp1
                 {
                     try
                     {
-                        if (fileName.IndexOf(".lnk") != -1)
-                        {
-                            var shl = new Shell32.Shell();
-                            fileName = System.IO.Path.GetFullPath(fileName);
-                            var dir = shl.NameSpace(System.IO.Path.GetDirectoryName(fileName));
-                            var itm = dir.Items().Item(System.IO.Path.GetFileName(fileName));
-                            var lnk = (Shell32.ShellLinkObject)itm.GetLink;
-                            Icon icon = System.Drawing.Icon.ExtractAssociatedIcon(lnk.Target.Path);
-                            ImageSource imageSource = Imaging.CreateBitmapSourceFromHIcon(
-                                icon.Handle,
-                                Int32Rect.Empty,
-                                BitmapSizeOptions.FromEmptyOptions()
-                                );
-                            return imageSource;
-                        }
-                        else
-                        {
-                            Icon icon = System.Drawing.Icon.ExtractAssociatedIcon(fileName);
-                            ImageSource imageSource = Imaging.CreateBitmapSourceFromHIcon(
-                                icon.Handle,
-                                Int32Rect.Empty,
-                                BitmapSizeOptions.FromEmptyOptions()
-                                );
-                            return imageSource;
-                        }
+                        return DefaultIcons.ExtractIconFromPath1(uri);
                     }
                     catch (Exception)
                     {
@@ -71,6 +47,13 @@ namespace WpfApp1
                     return fileName.Split('\\').Last().Split('.').First();
                 }
             }
+            public string uri
+            {
+                get
+                {
+                    return fileName;
+                }
+            }
             public string fileName;
         }
 
@@ -80,15 +63,24 @@ namespace WpfApp1
             try
             {
                 InitializeComponent();
-                ls.ItemsSource = Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)).ToList().Select(x => new Link() { fileName = x });
                 RunPeriodicSave();
+                //F();
             }
             catch (Exception)
             {
 
             }
         }
+        int a = 0;
 
+        public async Task F()
+        {
+            while (true)
+            {
+                await Task.Delay(1000);
+                SetBottom(this);
+            }
+        }
         public async Task RunPeriodicSave()
         {
             // while (true)
@@ -100,22 +92,55 @@ namespace WpfApp1
             //     this.Height = 101;
             //     break;
             // }
+            await Task.Delay(1000);
 
             ShowDesktop.AddHook(this);
-            await Task.Delay(1000);
+            IntPtr hWnd = new WindowInteropHelper(this).Handle;
+            SetWindowLong(hWnd, GWL_EX_STYLE, (GetWindowLong(hWnd, GWL_EX_STYLE) | WS_EX_TOOLWINDOW) & ~WS_EX_APPWINDOW);
             SetBottom(this);
+            while (true)
+            {
+                await Task.Delay(1000);
+                if (GetFiles().ToList().Count != a)
+                {
+                    ls.ItemsSource = GetFiles().ToList().Select(x => new Link() { fileName = x });
+                    a = GetFiles().ToList().Count;
+                }
+            }
+        }
+
+        public static IEnumerable<string> GetFiles()
+        {
+            foreach (string s in Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)))
+                yield return s;
+            foreach (string s in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)))
+                if (!s.EndsWith("desktop.ini"))
+                    yield return s;
+
         }
 
         [DllImport("user32.dll")]
         static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
         [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
         static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+        [DllImport("user32.dll")]
+        static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+        private const int GWL_EX_STYLE = -20;
+        private const int WS_EX_APPWINDOW = 0x00040000, WS_EX_TOOLWINDOW = 0x00000080;
+
 
         public static void SetOnDesktop(Window window)
         {
             IntPtr hWnd = new WindowInteropHelper(window).Handle;
             IntPtr hWndProgMan = FindWindow("ProgMan", null);
             SetParent(hWnd, hWndProgMan);
+        }
+
+        public static void Run(string s)
+        {
+            System.Diagnostics.Process.Start(s);
         }
 
 
@@ -135,9 +160,29 @@ namespace WpfApp1
             SetWindowPos(hWnd, HWND_BOTTOM, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Window_GotFocus(object sender, RoutedEventArgs e)
+        {
+            SetBottom(this);
+        }
+
+        private void Button_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            DragDrop.DoDragDrop(sender as Button, (sender as Button).Tag, DragDropEffects.Copy);
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            SetBottom(this);
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Run((sender as Button).Tag.ToString());
         }
     }
 }

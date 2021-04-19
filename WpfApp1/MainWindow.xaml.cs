@@ -180,9 +180,26 @@ namespace WpfApp1
             Application.Current.Shutdown();
         }
 
+        private void OpenInExplorer_Click(object sender, RoutedEventArgs e)
+        {
+            Run(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory));
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            File.Delete((sender as MenuItem).Tag.ToString());
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Run((sender as Button).Tag.ToString());
+            try
+            {
+                Run((sender as Button).Tag.ToString());
+            }
+            catch (Exception)
+            {
+
+            }
         }
     }
 }

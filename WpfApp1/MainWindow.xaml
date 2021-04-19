@@ -71,6 +71,7 @@
                         <WrapPanel.ContextMenu>
                             <ContextMenu StaysOpen="true">
                                 <MenuItem Header="Настройки"/>
+                                <MenuItem Header="Открыть папку в проводнике" Click="OpenInExplorer_Click"/>
                                 <MenuItem Header="Выключить" Click="MenuItem_Click"/>
                             </ContextMenu>
                         </WrapPanel.ContextMenu>
@@ -80,7 +81,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Tag="{Binding uri}" Height="200" Margin="5" Background="#A000" Width="200">
-                        <Button MouseDown="Button_MouseDown" BorderThickness="3" Click="Button_Click" Tag="{Binding uri}" Style="{StaticResource ButtonRevealStyle}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="Transparent">
+                        <Button BorderThickness="3" Click="Button_Click" Tag="{Binding uri}" Style="{StaticResource ButtonRevealStyle}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="Transparent">
                             <Button.Content>
                                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent">
                                     <Grid.ColumnDefinitions>
@@ -97,6 +98,11 @@
                                     <TextBlock HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding name}" Grid.Row="2" Grid.ColumnSpan="3"/>
                                 </Grid>
                             </Button.Content>
+                            <Button.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Tag="{Binding uri}" Header="Удалить" Click="Delete_Click"/>
+                                </ContextMenu>
+                            </Button.ContextMenu>
                         </Button>
                     </Grid>
                 </DataTemplate>

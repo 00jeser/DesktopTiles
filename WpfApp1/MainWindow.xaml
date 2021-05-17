@@ -9,6 +9,7 @@
         MouseDown="Window_MouseDown"
         xmlns:fw="clr-namespace:SourceChord.FluentWPF;assembly=FluentWPF"
         Title="MainWindow" ShowInTaskbar="False" AllowsTransparency="True" WindowStyle="None" WindowState="Maximized" Background="{x:Null}" 
+        Focusable="False" 
         >
     <Window.Resources>
         <Style x:Key="{x:Type ListBoxItem}"
@@ -82,6 +83,13 @@
                 <DataTemplate>
                     <Grid Tag="{Binding uri}" Height="200" Margin="5" Background="#A000" Width="200">
                         <Button BorderThickness="3" Click="Button_Click" Tag="{Binding uri}" Style="{StaticResource ButtonRevealStyle}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="Transparent">
+                            <Button.ToolTip>
+                                <ToolTip>
+                                    <Grid>
+                                        <TextBlock Text="{Binding name}"/>
+                                    </Grid>
+                                </ToolTip>
+                            </Button.ToolTip>
                             <Button.Content>
                                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent">
                                     <Grid.ColumnDefinitions>

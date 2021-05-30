@@ -44,7 +44,9 @@ namespace WpfApp1
             {
                 get
                 {
-                    return string.Join(".", fileName.Split('\\').Last().Split('.').Reverse().Skip(1).Reverse());
+                    if (fileName.Contains("."))
+                        return string.Join(".", fileName.Split('\\').Last().Split('.').Reverse().Skip(1).Reverse());
+                    return fileName.Split('\\').Last();
                 }
             }
             public string uri

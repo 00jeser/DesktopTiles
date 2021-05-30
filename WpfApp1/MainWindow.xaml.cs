@@ -44,7 +44,7 @@ namespace WpfApp1
             {
                 get
                 {
-                    return fileName.Split('\\').Last().Split('.').First();
+                    return string.Join(".", fileName.Split('\\').Last().Split('.').Reverse().Skip(1).Reverse());
                 }
             }
             public string uri
@@ -112,6 +112,8 @@ namespace WpfApp1
         public static IEnumerable<string> GetFiles()
         {
             foreach (string s in Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)))
+                yield return s;
+            foreach (string s in Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory)))
                 yield return s;
             foreach (string s in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)))
                 if (!s.EndsWith("desktop.ini"))
@@ -187,7 +189,14 @@ namespace WpfApp1
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            File.Delete((sender as MenuItem).Tag.ToString());
+            try
+            {
+                File.Delete((sender as MenuItem).Tag.ToString());
+            }
+            catch (Exception)
+            {
+
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

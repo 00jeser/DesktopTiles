@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -67,6 +68,7 @@ namespace WpfApp1
                 InitializeComponent();
                 RunPeriodicSave();
                 //F();
+                SetOnDesktop(this);
             }
             catch (Exception)
             {
@@ -113,13 +115,18 @@ namespace WpfApp1
 
         public static IEnumerable<string> GetFiles()
         {
-            foreach (string s in Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)))
+            foreach (string s in Directory.GetDirectories("C:\\Users\\00jes\\OneDrive\\Документы\\Desktop"))
                 yield return s;
-            foreach (string s in Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory)))
-                yield return s;
-            foreach (string s in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)))
+            foreach (string s in Directory.GetFiles("C:\\Users\\00jes\\OneDrive\\Документы\\Desktop"))
                 if (!s.EndsWith("desktop.ini"))
                     yield return s;
+            //foreach (string s in Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)))
+            //    yield return s;
+            //foreach (string s in Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory)))
+            //    yield return s;
+            //foreach (string s in Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)))
+            //    if (!s.EndsWith("desktop.ini"))
+            //        yield return s;
 
         }
 
@@ -138,7 +145,7 @@ namespace WpfApp1
         public static void SetOnDesktop(Window window)
         {
             IntPtr hWnd = new WindowInteropHelper(window).Handle;
-            IntPtr hWndProgMan = FindWindow("ProgMan", null);
+            IntPtr hWndProgMan = GetDesktopWindow(DesktopWindow.ProgMan);
             SetParent(hWnd, hWndProgMan);
         }
 
@@ -211,6 +218,83 @@ namespace WpfApp1
             {
 
             }
+        }
+
+
+
+
+        [DllImport("user32.dll")]
+        static extern IntPtr GetShellWindow();
+        [DllImport("user32.dll")]
+        public static extern IntPtr FindWindowEx(IntPtr parentHandle, IntPtr hWndChildAfter, string className, string windowTitle);
+        [DllImport("user32.dll")]
+        static extern bool EnumWindows(ControlzEx.Standard.NativeMethods.EnumWindowsProc lpEnumFunc, IntPtr lParam);
+        [DllImport("user32.dll")]
+        static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
+        public enum DesktopWindow
+        {
+            ProgMan,
+            SHELLDLL_DefViewParent,
+            SHELLDLL_DefView,
+            SysListView32
+        }
+
+
+        static IntPtr _ProgMan;
+        static IntPtr _SHELLDLL_DefViewParent;
+        static IntPtr _SHELLDLL_DefView;
+        static IntPtr _SysListView32;
+        public static IntPtr GetDesktopWindow(DesktopWindow desktopWindow)
+        {
+            _ProgMan = GetShellWindow();
+            _SHELLDLL_DefViewParent = _ProgMan;
+            _SHELLDLL_DefView = FindWindowEx(_ProgMan, IntPtr.Zero, "SHELLDLL_DefView", null);
+            _SysListView32 = FindWindowEx(_SHELLDLL_DefView, IntPtr.Zero, "SysListView32", "FolderView");
+
+            if (_SHELLDLL_DefView == IntPtr.Zero)
+            {
+                EnumWindows(finding, IntPtr.Zero);
+            }
+
+            switch (desktopWindow)
+            {
+                case DesktopWindow.ProgMan:
+                    return _ProgMan;
+                case DesktopWindow.SHELLDLL_DefViewParent:
+                    return _SHELLDLL_DefViewParent;
+                case DesktopWindow.SHELLDLL_DefView:
+                    return _SHELLDLL_DefView;
+                case DesktopWindow.SysListView32:
+                    return _SysListView32;
+                default:
+                    return IntPtr.Zero;
+            }
+        }
+
+        [HandleProcessCorruptedStateExceptions]
+        public static bool finding(IntPtr hwnd, IntPtr lParam)
+        {
+            StringBuilder sb = new StringBuilder();
+            try
+            {
+                int r = GetClassName(hwnd, sb, 2048);
+                if (sb.ToString() == "WorkerW")
+                {
+                    IntPtr child = FindWindowEx(hwnd, IntPtr.Zero, "SHELLDLL_DefView", null);
+                    if (child != IntPtr.Zero)
+                    {
+                        _SHELLDLL_DefViewParent = hwnd;
+                        _SHELLDLL_DefView = child;
+                        _SysListView32 = FindWindowEx(child, IntPtr.Zero, "SysListView32", "FolderView"); ;
+                        return false;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            return true;
         }
     }
 }

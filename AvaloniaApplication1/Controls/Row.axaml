@@ -1,0 +1,52 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="clr-namespace:AvaloniaApplication1.Models"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AvaloniaApplication1.Controls.Row">
+	<UserControl.Styles>
+		<Style Selector="Button.inFolder">
+			<Setter Property="Margin" Value="2"/>
+		</Style>
+	</UserControl.Styles>
+	<StackPanel x:Name="MainGrid" HorizontalAlignment="Center">
+		<ItemsControl x:Name="rowLayout">
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+			<ItemsControl.DataTemplates>
+				<DataTemplate DataType="models:TileFolder">
+					<Button Click="Button_OnClick" CommandParameter="{Binding Tiles}"/>
+				</DataTemplate>
+				<DataTemplate DataType="models:TileItem">
+					<Button CommandParameter="{Binding Path}"/>
+				</DataTemplate>
+			</ItemsControl.DataTemplates>
+		</ItemsControl>
+		<ScrollViewer x:Name="scroll">
+			<ItemsControl Height="0" x:Name="Folder">
+				<ItemsControl.Transitions>
+					<Transitions>
+						<DoubleTransition Property="Height" Duration="0:0:0.3"/>
+					</Transitions>
+				</ItemsControl.Transitions>
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<StackPanel Orientation="Horizontal"/>
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+				<ItemsControl.DataTemplates>
+					<DataTemplate DataType="models:TileFolder">
+						<Button Click="Button_OnClick" CommandParameter="{Binding Tiles}"/>
+					</DataTemplate>
+					<DataTemplate DataType="models:TileItem">
+						<Button Classes="inFolder" CommandParameter="{Binding Path}"/>
+					</DataTemplate>
+				</ItemsControl.DataTemplates>
+			</ItemsControl>
+		</ScrollViewer>
+	</StackPanel>
+</UserControl>

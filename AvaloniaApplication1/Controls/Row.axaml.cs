@@ -51,7 +51,7 @@ namespace AvaloniaApplication1.Controls
         {
             InitializeComponent();
                 this.FindControl<ItemsControl>("Folder").Items =
-                    new ObservableCollection<TileItem>(Enumerable.Range(0, 8).Select(x => new TileItem()));
+                    new ObservableCollection<TileItem>(Enumerable.Range(0, 8).Select(x => new TileItem("")));
         }
 
         private void InitializeComponent()

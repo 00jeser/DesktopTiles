@@ -4,40 +4,81 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="clr-namespace:AvaloniaApplication1.Controls"
+        xmlns:models="clr-namespace:AvaloniaApplication1.Models"
+        xmlns:system="clr-namespace:System;assembly=System.Runtime"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="AvaloniaApplication1.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="AvaloniaApplication1"
         HasSystemDecorations="False"
         TransparencyLevelHint="Transparent"
-        Background="#0fff">
+        Background="{x:Null}"
+		PointerReleased="BackgroundClick"
+        >
 	<Window.Styles>
-		<Style Selector="Button">
-			<Setter Property="Background" Value="#a000"/>
-			<Setter Property="Margin" Value="10"></Setter>
-			<Setter Property="Height" Value="210"/>
-			<Setter Property="Width" Value="210"/>
-        </Style>
-		<Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-			<Setter Property="Background" Value="#8000"/>
-		</Style>
-		<Style Selector="Button:pressed">
-			<Setter Property="Background" Value="#9000"/>
-		</Style>
+		<StyleInclude Source="/Styles/Win11.axaml"/>
 	</Window.Styles>
-
+	<Window.ContextMenu>
+		<ContextMenu x:Name="Menu" Background="#AAAA">
+			<MenuItem Header="Показать рабочий стол" Click="ShowDesktop"/>
+			<MenuItem Header="Показать меню пуск" Click="ShowStartup"/>
+			<MenuItem Click="ShowPreset">
+				<MenuItem.Header>
+					<Grid ColumnDefinitions="* *">
+						<TextBlock VerticalAlignment="Center" Text="Показать папку"/>
+						<Button Grid.Column="1" Content="⚙️" Click="SetPreset"/>
+					</Grid>
+				</MenuItem.Header>
+			</MenuItem>
+			<MenuItem Header="Выход" Click="Exit"/>
+		</ContextMenu>
+	</Window.ContextMenu>
 	<Design.DataContext>
 		<vm:MainWindowViewModel/>
 	</Design.DataContext>
+	<Grid>
 
-	<ScrollViewer>
-		<ItemsControl x:Name="tiles">
-			<ItemsControl.DataTemplates>
-				<DataTemplate>
-					<controls:Row Items="{Binding}" HorizontalAlignment="Stretch"/>
-                </DataTemplate>
-            </ItemsControl.DataTemplates>
-        </ItemsControl>
-	</ScrollViewer>
+		<ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10 10 10 60">
+			<ItemsControl x:Name="tiles">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<!--<controls:TilesPanel Background="red" ElementSize="280" Spacing="2" x:Name="TilesPanel"/>-->
+						<WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal"/>
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+				<ItemsControl.DataTemplates>
+					<DataTemplate DataType="models:TileItem">
+						<Button Classes="Tile" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_OnClick" CommandParameter="{Binding}">
+							<Grid>
+								<Image HorizontalAlignment="Center" VerticalAlignment="Center" Source="{Binding Icon}" Width="50" Height="50"/>
+								<TextBlock Text="{Binding Name}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+							</Grid>
+							<Button.ContextMenu>
+								<ContextMenu>
+									<MenuItem Header="Изменить иконку"/>
+								</ContextMenu>
+							</Button.ContextMenu>
+						</Button>
+					</DataTemplate>
+					<DataTemplate DataType="models:TileFolder">
+						<Button Classes="Tile" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_OnClick" CommandParameter="{Binding}">
+							<Grid>
+								<Grid ColumnDefinitions="* *" RowDefinitions="* *" Width="100" Height="100">
+									<Image Margin="2.5" Grid.Row="0" Grid.Column="0" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Source="{Binding Icon1}"/>
+									<Image Margin="2.5" Grid.Row="1" Grid.Column="0" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Source="{Binding Icon2}"/>
+									<Image Margin="2.5" Grid.Row="0" Grid.Column="1" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Source="{Binding Icon3}"/>
+									<Image Margin="2.5" Grid.Row="1" Grid.Column="1" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Source="{Binding Icon4}"/>
+								</Grid>
+								<TextBlock Text="{Binding Name}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+							</Grid>
+						</Button>
+					</DataTemplate>
+				</ItemsControl.DataTemplates>
+			</ItemsControl>
+		</ScrollViewer>
+		<Button VerticalAlignment="Top" IsVisible="False" x:Name="BackButton" Click="OnBackButtonClick">
+			<TextBlock Text="←" FontWeight="Bold" FontSize="80" Foreground="white"/>
+		</Button>
 
+	</Grid>
 </Window>

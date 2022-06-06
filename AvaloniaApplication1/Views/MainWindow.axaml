@@ -50,7 +50,7 @@
 					<DataTemplate DataType="models:TileItem">
 						<Button Classes="Tile" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_OnClick" CommandParameter="{Binding}">
 							<Grid>
-								<Image HorizontalAlignment="Center" VerticalAlignment="Center" Source="{Binding Icon}" Width="50" Height="50"/>
+								<Image HorizontalAlignment="Center" VerticalAlignment="Center" Source="{Binding Icon}"/>
 								<TextBlock Text="{Binding Name}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
 							</Grid>
 							<Button.ContextMenu>
@@ -63,11 +63,11 @@
 					<DataTemplate DataType="models:TileFolder">
 						<Button Classes="Tile" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_OnClick" CommandParameter="{Binding}">
 							<Grid>
-								<Grid ColumnDefinitions="* *" RowDefinitions="* *" Width="100" Height="100">
-									<Image Margin="2.5" Grid.Row="0" Grid.Column="0" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Source="{Binding Icon1}"/>
-									<Image Margin="2.5" Grid.Row="1" Grid.Column="0" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Source="{Binding Icon2}"/>
-									<Image Margin="2.5" Grid.Row="0" Grid.Column="1" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Source="{Binding Icon3}"/>
-									<Image Margin="2.5" Grid.Row="1" Grid.Column="1" Width="40" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center" Source="{Binding Icon4}"/>
+								<Grid ColumnDefinitions="* *" RowDefinitions="* *">
+									<Image Margin="2.5" Grid.Row="0" Grid.Column="0" Source="{Binding Icon1}"/>
+									<Image Margin="2.5" Grid.Row="1" Grid.Column="0" Source="{Binding Icon2}"/>
+									<Image Margin="2.5" Grid.Row="0" Grid.Column="1" Source="{Binding Icon3}"/>
+									<Image Margin="2.5" Grid.Row="1" Grid.Column="1" Source="{Binding Icon4}"/>
 								</Grid>
 								<TextBlock Text="{Binding Name}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
 							</Grid>

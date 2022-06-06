@@ -1,11 +1,69 @@
 <Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        >
 	<Style Selector="Button">
-        <Setter Property="Background" Value="#c000"/>
-        <Setter Property="Margin" Value="1"/>
+		<Setter Property="Transitions">
+			<Setter.Value>
+				<Transitions>
+					<DoubleTransition Property="Opacity" Duration="0:0:0.2"/>
+					<DoubleTransition Property="Width" Duration="0:0:0.2"/>
+					<DoubleTransition Property="Height" Duration="0:0:0.2"/>
+					<ThicknessTransition Property="Margin" Duration="0:0:0.2"/>
+					<BrushTransition Property="Background" Duration="0:0:0.2"/>
+				</Transitions>
+			</Setter.Value>
+		</Setter>
+		<Setter Property="Background" Value="#c000"/>
+		<Setter Property="Margin" Value="1"/>
+	</Style>
+	<Style Selector="Button > Grid > Image">
+		<Setter Property="Width" Value="50"/>
+		<Setter Property="Height" Value="50"/>
+		<Setter Property="Transitions">
+			<Setter.Value>
+				<Transitions>
+					<DoubleTransition Property="Width" Duration="0:0:0.1"/>
+					<DoubleTransition Property="Height" Duration="0:0:0.1"/>
+				</Transitions>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style Selector="Button > Grid > Grid">
+		<Setter Property="Width" Value="100"/>
+		<Setter Property="Height" Value="100"/>
+		<Setter Property="Transitions">
+			<Setter.Value>
+				<Transitions>
+					<DoubleTransition Property="Width" Duration="0:0:0.1"/>
+					<DoubleTransition Property="Height" Duration="0:0:0.1"/>
+				</Transitions>
+			</Setter.Value>
+		</Setter>
+	</Style>
+    <Style Selector="Button > Grid > Grid > Image">
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="Height" Value="40"/>
+		<Setter Property="HorizontalAlignment" Value="Center"/>
+		<Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Transitions">
+            <Setter.Value>
+                <Transitions>
+                    <DoubleTransition Property="Width" Duration="0:0:0.1"/>
+                    <DoubleTransition Property="Height" Duration="0:0:0.1"/>
+                </Transitions>
+            </Setter.Value>
+        </Setter>
+    </Style>
+	<Style Selector="Button:pointerover > Grid > Grid">
+		<Setter Property="Width" Value="130"/>
+		<Setter Property="Height" Value="130"/>
     </Style>
     <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
         <Setter Property="Background" Value="#d000"/>
+    </Style>
+    <Style Selector="Button:pointerover > Grid > Image">
+        <Setter Property="Width" Value="55"/>
+        <Setter Property="Height" Value="55"/>
     </Style>
     <Style Selector="Button:pressed">
         <Setter Property="Background" Value="#e000"/>
@@ -15,6 +73,20 @@
         <Setter Property="Width" Value="280"/>
         <Setter Property="Height" Value="280"/>
     </Style>
-    <Style Selector="Button.openAnimation">
+	<Style Selector="Button.openAnimation">
+		<Setter Property="Background" Value="#1000"/>
+		<Setter Property="Width" Value="500"/>
+		<Setter Property="Height" Value="500"/>
+		<Setter Property="Margin" Value="-109"/>
+	</Style>
+	<Style Selector="Button.openAnimation:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="#1000"/>
+        <Setter Property="Width" Value="500"/>
+        <Setter Property="Height" Value="500"/>
+        <Setter Property="Margin" Value="-109"/>
+    </Style>
+    <Style Selector="Button.openAnimation > Grid > Image">
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="Height" Value="100"/>
     </Style>
 </Styles>

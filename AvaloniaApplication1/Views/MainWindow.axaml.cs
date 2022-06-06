@@ -39,11 +39,11 @@ namespace AvaloniaApplication1.Views
 #if DEBUG
             this.AttachDevTools();
 #endif
+            //Styles.Add(AvaloniaRuntimeXamlLoader.Parse<Styles>(File.ReadAllText("D:\\Programming\\vs\\DesktopTiles\\AvaloniaApplication1\\Styles\\Win11.axaml")));
             this.FindControl<ItemsControl>("tiles").Items = tiles;
-            AttachToDesktop();
+            AttachingToDesktop();
             WindowInfo.MainWindow = this;
             AddTiles();
-            //(Styles[0] as StyleInclude).Source = new Uri("/Styles/Win11.axaml");
         }
 
 
@@ -52,25 +52,33 @@ namespace AvaloniaApplication1.Views
             AvaloniaXamlLoader.Load(this);
         }
 
-        private async void AttachToDesktop()
+        private async void AttachingToDesktop()
         {
-            IntPtr handle = IntPtr.Zero;
-            while (handle == IntPtr.Zero)
+                IntPtr handle = IntPtr.Zero;
+                while (handle == IntPtr.Zero)
+                {
+                    var toplevel = (TopLevel)this.GetVisualRoot();
+
+                    var platformImpl = (WindowImpl)toplevel.PlatformImpl;
+
+                    handle = platformImpl.Handle.Handle;
+                    await Task.Delay(1000);
+                }
+
+                Native.SetParent(handle, Native.FindShellWindow());
+
+            while (true)
             {
-                var toplevel = (TopLevel)this.GetVisualRoot();
-
-                var platformImpl = (WindowImpl)toplevel.PlatformImpl;
-
-                handle = platformImpl.Handle.Handle;
-                await Task.Delay(1000);
+                WindowInfo.Width = Screens.Primary.Bounds.Width;
+                WindowInfo.Height = Screens.Primary.Bounds.Height;
+                int xPos = -Screens.All.Select(x => x.Bounds.X).Min() - 1;
+                int yPos = -Screens.All.Select(x => x.Bounds.Y).Min() - 1;
+                var win = Screens.Primary.Bounds;
+                Position = new PixelPoint(xPos, yPos);
+                Width = win.Width - 2;
+                Height = win.Height - 2;
+                await Task.Delay(10000);
             }
-            Native.SetParent(handle, Native.FindShellWindow());
-            int xPos = -Screens.All.Select(x => x.Bounds.X).Min() - 1;
-            int yPos = -Screens.All.Select(x => x.Bounds.Y).Min() - 1;
-            var win = Screens.Primary.Bounds;
-            Position = new PixelPoint(xPos, yPos);
-            Width = win.Width - 2;
-            Height = win.Height - 2;
         }
 
         private async void Button_OnClick(object? sender, RoutedEventArgs e)
@@ -145,7 +153,7 @@ namespace AvaloniaApplication1.Views
 
         private void ShowPreset(object? sender, RoutedEventArgs e)
         {
-            if(string.IsNullOrWhiteSpace(presetPath))
+            if (string.IsNullOrWhiteSpace(presetPath))
                 return;
             this.FindControl<ContextMenu>("Menu").Close();
 

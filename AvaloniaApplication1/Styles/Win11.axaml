@@ -89,4 +89,7 @@
         <Setter Property="Width" Value="100"/>
         <Setter Property="Height" Value="100"/>
     </Style>
+    <Style Selector="TextBlock.BackButtonText">
+        <Setter Property="Foreground" Value="#fff"/>
+    </Style>
 </Styles>

@@ -16,7 +16,7 @@
 		PointerReleased="BackgroundClick"
         >
 	<Window.Styles>
-		<StyleInclude Source="/Styles/Win11.axaml"/>
+		<StyleInclude Source="/Styles/AndroidStyle.axaml"/>
 	</Window.Styles>
 	<Window.ContextMenu>
 		<ContextMenu x:Name="Menu" Background="#AAAA">
@@ -26,7 +26,6 @@
 				<MenuItem.Header>
 					<Grid ColumnDefinitions="* *">
 						<TextBlock VerticalAlignment="Center" Text="Показать папку"/>
-						<Button Grid.Column="1" Content="⚙️" Click="SetPreset"/>
 					</Grid>
 				</MenuItem.Header>
 			</MenuItem>
@@ -48,10 +47,10 @@
 				</ItemsControl.ItemsPanel>
 				<ItemsControl.DataTemplates>
 					<DataTemplate DataType="models:TileItem">
-						<Button Classes="Tile" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_OnClick" CommandParameter="{Binding}">
-							<Grid>
-								<Image HorizontalAlignment="Center" VerticalAlignment="Center" Source="{Binding Icon}"/>
-								<TextBlock Text="{Binding Name}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+						<Button Classes="Tile ItemTile" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_OnClick" CommandParameter="{Binding}">
+							<Grid Classes="ItemTileContainer">
+								<Image Classes="ItemTileImage" HorizontalAlignment="Center" VerticalAlignment="Center" Source="{Binding Icon}"/>
+								<TextBlock Classes="ItemTileTitle" Text="{Binding Name}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
 							</Grid>
 							<Button.ContextMenu>
 								<ContextMenu>
@@ -61,23 +60,23 @@
 						</Button>
 					</DataTemplate>
 					<DataTemplate DataType="models:TileFolder">
-						<Button Classes="Tile" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_OnClick" CommandParameter="{Binding}">
-							<Grid>
-								<Grid ColumnDefinitions="* *" RowDefinitions="* *">
-									<Image Margin="2.5" Grid.Row="0" Grid.Column="0" Source="{Binding Icon1}"/>
-									<Image Margin="2.5" Grid.Row="1" Grid.Column="0" Source="{Binding Icon2}"/>
-									<Image Margin="2.5" Grid.Row="0" Grid.Column="1" Source="{Binding Icon3}"/>
-									<Image Margin="2.5" Grid.Row="1" Grid.Column="1" Source="{Binding Icon4}"/>
+						<Button Classes="Tile FolderTile" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_OnClick" CommandParameter="{Binding}">
+							<Grid Classes="FolderTileContainer">
+								<Grid Classes="FolderTileImagesContainer" ColumnDefinitions="* *" RowDefinitions="* *">
+									<Image Classes="FolderTileImage" Margin="2.5" Grid.Row="0" Grid.Column="0" Source="{Binding Icon1}"/>
+									<Image Classes="FolderTileImage" Margin="2.5" Grid.Row="1" Grid.Column="0" Source="{Binding Icon2}"/>
+									<Image Classes="FolderTileImage" Margin="2.5" Grid.Row="0" Grid.Column="1" Source="{Binding Icon3}"/>
+									<Image Classes="FolderTileImage" Margin="2.5" Grid.Row="1" Grid.Column="1" Source="{Binding Icon4}"/>
 								</Grid>
-								<TextBlock Text="{Binding Name}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+								<TextBlock Classes="FolderTileTitle" Text="{Binding Name}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
 							</Grid>
 						</Button>
 					</DataTemplate>
 				</ItemsControl.DataTemplates>
 			</ItemsControl>
 		</ScrollViewer>
-		<Button VerticalAlignment="Top" IsVisible="False" x:Name="BackButton" Click="OnBackButtonClick">
-			<TextBlock Text="←" FontWeight="Bold" FontSize="80" Foreground="white"/>
+		<Button Classes="BackButton" VerticalAlignment="Top" IsVisible="False" x:Name="BackButton" Click="OnBackButtonClick">
+			<TextBlock Classes="BackButtonText" Text="←" FontWeight="Bold" FontSize="80"/>
 		</Button>
 
 	</Grid>

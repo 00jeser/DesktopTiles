@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
-using AvaloniaApplication1.Utils;
+using DesktopTiles.Utils;
 using ReactiveUI;
 
-namespace AvaloniaApplication1.Models
+namespace DesktopTiles.Models
 {
     public class TileItem : Tile
     {

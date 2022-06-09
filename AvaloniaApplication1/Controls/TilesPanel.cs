@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Collections;
 using Avalonia.Controls;
-using AvaloniaApplication1.Models;
+using DesktopTiles.Models;
 
-namespace AvaloniaApplication1.Controls
+namespace DesktopTiles.Controls
 {
     public class TilesPanel : Panel
     {

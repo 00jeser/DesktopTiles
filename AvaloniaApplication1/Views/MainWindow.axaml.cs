@@ -17,16 +17,16 @@ using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Styling;
 using Avalonia.VisualTree;
 using Avalonia.Win32;
-using AvaloniaApplication1.Controls;
-using AvaloniaApplication1.Models;
-using AvaloniaApplication1.Utils;
+using DesktopTiles.Controls;
+using DesktopTiles.Models;
+using DesktopTiles.Utils;
 using DynamicData;
 using Microsoft.Win32;
 using NativeWorker;
 using Bitmap = Avalonia.Media.Imaging.Bitmap;
 using Size = System.Drawing.Size;
 
-namespace AvaloniaApplication1.Views
+namespace DesktopTiles.Views
 {
     public partial class MainWindow : Window
     {

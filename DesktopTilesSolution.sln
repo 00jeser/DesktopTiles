@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NativeWorker", "NativeWorker\NativeWorker.csproj", "{9AAEBC6A-FCDC-4BC6-A451-6199847A3164}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvaloniaApplication1", "AvaloniaApplication1\AvaloniaApplication1.csproj", "{5558DD09-EC1F-4D3A-ADC8-42E5A75B4439}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopTiles", "AvaloniaApplication1\DesktopTiles.csproj", "{5558DD09-EC1F-4D3A-ADC8-42E5A75B4439}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

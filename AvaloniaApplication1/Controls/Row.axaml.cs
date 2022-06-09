@@ -10,9 +10,9 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
-using AvaloniaApplication1.Models;
+using DesktopTiles.Models;
 
-namespace AvaloniaApplication1.Controls
+namespace DesktopTiles.Controls
 {
     public partial class Row : UserControl
     {

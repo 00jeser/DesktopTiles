@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Avalonia.Media.Imaging;
-using AvaloniaApplication1.Utils;
+using DesktopTiles.Utils;
 using ReactiveUI;
 
-namespace AvaloniaApplication1.Models
+namespace DesktopTiles.Models
 {
     public class TileFolder : Tile
     {

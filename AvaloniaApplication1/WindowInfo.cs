@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 
-namespace AvaloniaApplication1
+namespace DesktopTiles
 {
     public static class WindowInfo
     {

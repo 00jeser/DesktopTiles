@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ReactiveUI;
 
-namespace AvaloniaApplication1.Models
+namespace DesktopTiles.Models
 {
     public class Tile : ReactiveObject
     {

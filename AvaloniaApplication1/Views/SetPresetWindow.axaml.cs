@@ -2,7 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace AvaloniaApplication1.Views
+namespace DesktopTiles.Views
 {
     public partial class SetPresetWindow : Window
     {

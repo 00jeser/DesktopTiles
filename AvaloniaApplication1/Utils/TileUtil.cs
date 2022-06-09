@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Avalonia.Media.Imaging;
-using AvaloniaApplication1.Models;
+using DesktopTiles.Models;
 using IWshRuntimeLibrary;
 using File = System.IO.File;
 
-namespace AvaloniaApplication1.Utils
+namespace DesktopTiles.Utils
 {
     public static class TileUtil
     {

@@ -16,7 +16,8 @@
 		PointerReleased="BackgroundClick"
         >
 	<Window.Styles>
-		<StyleInclude Source="/Styles/AndroidStyle.axaml"/>
+		<StyleInclude Source="/Styles/DefaultStyle.axaml"/>
+        <StyleInclude Source="/Styles/AndroidStyle.axaml"/>
 	</Window.Styles>
 	<Window.ContextMenu>
 		<ContextMenu x:Name="Menu" Background="#AAAA">
@@ -50,7 +51,7 @@
 						<Button Classes="Tile ItemTile" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_OnClick" CommandParameter="{Binding}">
 							<Grid Classes="ItemTileContainer">
 								<Image Classes="ItemTileImage" HorizontalAlignment="Center" VerticalAlignment="Center" Source="{Binding Icon}"/>
-								<TextBlock Classes="ItemTileTitle" Text="{Binding Name}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+								<TextBlock Classes="ItemTileTitle"/>
 							</Grid>
 							<Button.ContextMenu>
 								<ContextMenu>
@@ -63,12 +64,12 @@
 						<Button Classes="Tile FolderTile" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_OnClick" CommandParameter="{Binding}">
 							<Grid Classes="FolderTileContainer">
 								<Grid Classes="FolderTileImagesContainer" ColumnDefinitions="* *" RowDefinitions="* *">
-									<Image Classes="FolderTileImage" Margin="2.5" Grid.Row="0" Grid.Column="0" Source="{Binding Icon1}"/>
-									<Image Classes="FolderTileImage" Margin="2.5" Grid.Row="1" Grid.Column="0" Source="{Binding Icon2}"/>
-									<Image Classes="FolderTileImage" Margin="2.5" Grid.Row="0" Grid.Column="1" Source="{Binding Icon3}"/>
-									<Image Classes="FolderTileImage" Margin="2.5" Grid.Row="1" Grid.Column="1" Source="{Binding Icon4}"/>
+									<Image Classes="FolderTileImage" Grid.Row="0" Grid.Column="0" Source="{Binding Icon1}"/>
+									<Image Classes="FolderTileImage" Grid.Row="1" Grid.Column="0" Source="{Binding Icon2}"/>
+									<Image Classes="FolderTileImage" Grid.Row="0" Grid.Column="1" Source="{Binding Icon3}"/>
+									<Image Classes="FolderTileImage" Grid.Row="1" Grid.Column="1" Source="{Binding Icon4}"/>
 								</Grid>
-								<TextBlock Classes="FolderTileTitle" Text="{Binding Name}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+								<TextBlock Classes="FolderTileTitle"/>
 							</Grid>
 						</Button>
 					</DataTemplate>

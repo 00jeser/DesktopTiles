@@ -1,0 +1,17 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<Style Selector="Button.Tile /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="#f9303030"/>
+	</Style>
+	<Style Selector="Button.Tile:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+        <Setter Property="Background" Value="#252525"/>
+    </Style>
+	<Style Selector="Button.Tile">
+		<Setter Property="CornerRadius" Value="0"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="ClipToBounds" Value="False"/>
+	</Style>
+	<Style Selector="Button.Tile > Border">
+		<Setter Property="BoxShadow" Value="4 4 10 1 #8000"/>
+    </Style>
+</Styles>

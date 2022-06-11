@@ -35,4 +35,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </AvaloniaXaml>
   </ItemGroup>
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Styles\MetroStyle.axaml" />
+  </ItemGroup>
 </Project>

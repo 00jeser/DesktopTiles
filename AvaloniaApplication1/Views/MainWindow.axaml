@@ -17,7 +17,7 @@
         >
 	<Window.Styles>
 		<StyleInclude Source="/Styles/DefaultStyle.axaml"/>
-        <StyleInclude Source="/Styles/AndroidStyle.axaml"/>
+		<StyleInclude Source="/Styles/AndroidStyle.axaml"/>
 	</Window.Styles>
 	<Window.ContextMenu>
 		<ContextMenu x:Name="Menu" Background="#AAAA">
@@ -48,11 +48,13 @@
 				</ItemsControl.ItemsPanel>
 				<ItemsControl.DataTemplates>
 					<DataTemplate DataType="models:TileItem">
-						<Button Classes="Tile ItemTile" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_OnClick" CommandParameter="{Binding}">
-							<Grid Classes="ItemTileContainer">
-								<Image Classes="ItemTileImage" HorizontalAlignment="Center" VerticalAlignment="Center" Source="{Binding Icon}"/>
-								<TextBlock Classes="ItemTileTitle"/>
-							</Grid>
+						<Button Classes="Tile ItemTile" Click="Button_OnClick" CommandParameter="{Binding}">
+							<Border Classes="ItemTileBorder">
+								<Grid Classes="ItemTileContainer">
+									<Image Classes="ItemTileImage"/>
+									<TextBlock Classes="ItemTileTitle"/>
+								</Grid>
+							</Border>
 							<Button.ContextMenu>
 								<ContextMenu>
 									<MenuItem Header="Изменить иконку"/>
@@ -61,23 +63,25 @@
 						</Button>
 					</DataTemplate>
 					<DataTemplate DataType="models:TileFolder">
-						<Button Classes="Tile FolderTile" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_OnClick" CommandParameter="{Binding}">
-							<Grid Classes="FolderTileContainer">
-								<Grid Classes="FolderTileImagesContainer" ColumnDefinitions="* *" RowDefinitions="* *">
-									<Image Classes="FolderTileImage" Grid.Row="0" Grid.Column="0" Source="{Binding Icon1}"/>
-									<Image Classes="FolderTileImage" Grid.Row="1" Grid.Column="0" Source="{Binding Icon2}"/>
-									<Image Classes="FolderTileImage" Grid.Row="0" Grid.Column="1" Source="{Binding Icon3}"/>
-									<Image Classes="FolderTileImage" Grid.Row="1" Grid.Column="1" Source="{Binding Icon4}"/>
+						<Button Classes="Tile FolderTile" Click="Button_OnClick" CommandParameter="{Binding}">
+							<Border Classes="FolderTileBorder">
+								<Grid Classes="FolderTileContainer">
+									<Grid Classes="FolderTileImagesContainer" ColumnDefinitions="* *" RowDefinitions="* *">
+										<Image Classes="FolderTileImage" Grid.Row="0" Grid.Column="0" Source="{Binding Icon1}"/>
+										<Image Classes="FolderTileImage" Grid.Row="1" Grid.Column="0" Source="{Binding Icon2}"/>
+										<Image Classes="FolderTileImage" Grid.Row="0" Grid.Column="1" Source="{Binding Icon3}"/>
+										<Image Classes="FolderTileImage" Grid.Row="1" Grid.Column="1" Source="{Binding Icon4}"/>
+									</Grid>
+									<TextBlock Classes="FolderTileTitle"/>
 								</Grid>
-								<TextBlock Classes="FolderTileTitle"/>
-							</Grid>
+							</Border>
 						</Button>
 					</DataTemplate>
 				</ItemsControl.DataTemplates>
 			</ItemsControl>
 		</ScrollViewer>
-		<Button Classes="BackButton" VerticalAlignment="Top" IsVisible="False" x:Name="BackButton" Click="OnBackButtonClick">
-			<TextBlock Classes="BackButtonText" Text="←" FontWeight="Bold" FontSize="80"/>
+		<Button Classes="BackButton" IsVisible="False" x:Name="BackButton" Click="OnBackButtonClick">
+			<TextBlock Classes="BackButtonText"/>
 		</Button>
 
 	</Grid>

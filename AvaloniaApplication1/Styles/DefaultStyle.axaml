@@ -1,3 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 	<Style Selector="Button.Tile">
@@ -10,31 +11,51 @@
 		<Setter Property="VerticalAlignment" Value="Center"/>
 		<Setter Property="Margin" Value="2.5"/>
 	</Style>
-    <Style Selector="Grid.FolderTileImagesContainer">
-        <Setter Property="Width" Value="100"/>
-        <Setter Property="Height" Value="100"/>
-    </Style>
-    <Style Selector="Button.Tile">
+	<Style Selector="Grid.FolderTileImagesContainer">
+		<Setter Property="Width" Value="100"/>
+		<Setter Property="Height" Value="100"/>
+	</Style>
+	<Style Selector="Button.Tile">
 		<Setter Property="Width" Value="280"/>
 		<Setter Property="Height" Value="280"/>
 	</Style>
-    <Style Selector="Image.ItemTileImage">
-        <Setter Property="Width" Value="50"/>
-        <Setter Property="Height" Value="50"/>
-    </Style>
+	<Style Selector="Image.ItemTileImage">
+		<Setter Property="Width" Value="50"/>
+		<Setter Property="Height" Value="50"/>
+		<Setter Property="HorizontalAlignment" Value="Center"/>
+		<Setter Property="VerticalAlignment" Value="Center"/>
+		<Setter Property="Source" Value="{Binding Icon}"/>
+	</Style>
 	<Style Selector="TextBlock.BackButtonText">
-        <Setter Property="Foreground" Value="#fff"/>
-    </Style>
+		<Setter Property="Foreground" Value="#fff"/>
+		<Setter Property="Text" Value="←"/>
+		<Setter Property="FontWeight" Value="Bold"/>
+		<Setter Property="FontSize" Value="80"/>
+	</Style>
 	<Style Selector="TextBlock.ItemTileTitle">
-        <Setter Property="Text" Value="{Binding Name}"/>
-        <Setter Property="Foreground" Value="#fff"/>
-        <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Setter Property="VerticalAlignment" Value="Bottom"/>
-    </Style>
+		<Setter Property="Text" Value="{Binding Name}"/>
+		<Setter Property="Foreground" Value="#fff"/>
+		<Setter Property="HorizontalAlignment" Value="Left"/>
+		<Setter Property="VerticalAlignment" Value="Bottom"/>
+	</Style>
 	<Style Selector="TextBlock.FolderTileTitle">
 		<Setter Property="Text" Value="{Binding Name}"/>
 		<Setter Property="Foreground" Value="#fff"/>
 		<Setter Property="HorizontalAlignment" Value="Center"/>
 		<Setter Property="VerticalAlignment" Value="Bottom"/>
+	</Style>
+	<Style Selector="Button.ItemTile">
+		<Setter Property="HorizontalAlignment" Value="Stretch"/>
+		<Setter Property="VerticalAlignment" Value="Stretch"/>
+	</Style>
+	<Style Selector="Button.BackButton">
+		<Setter Property="VerticalAlignment" Value="Top"/>
+	</Style>
+	<Style Selector="Button.FolderTile">
+		<Setter Property="HorizontalAlignment" Value="Stretch"/>
+		<Setter Property="VerticalAlignment" Value="Stretch"></Setter>
+	</Style>
+	<Style Selector="Border.ItemTileBorder">
+		<Setter Property="BorderThickness" Value="0"/>
     </Style>
 </Styles>

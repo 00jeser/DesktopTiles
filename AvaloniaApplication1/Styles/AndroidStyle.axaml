@@ -1,18 +1,19 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-	<Style Selector="Button">
+	<Style Selector="Button.Tile">
 		<Setter Property="Transitions">
 			<Setter.Value>
 				<Transitions>
-					<DoubleTransition Property="Opacity" Duration="0:0:0.2"/>
-					<DoubleTransition Property="Width" Duration="0:0:0.2"/>
-					<DoubleTransition Property="Height" Duration="0:0:0.2"/>
-					<ThicknessTransition Property="Margin" Duration="0:0:0.2"/>
-					<BrushTransition Property="Background" Duration="0:0:0.2"/>
-				</Transitions>
+					<DoubleTransition Property="Opacity" Duration="0:0:0.1"/>
+					<DoubleTransition Property="Width" Duration="0:0:0.1"/>
+					<DoubleTransition Property="Height" Duration="0:0:0.1"/>
+					<ThicknessTransition Property="Margin" Duration="0:0:0.1"/>
+					<BrushTransition Property="Background" Duration="0:0:0.1"/>
+					<CornerRadiusTransition Property="CornerRadius" Duration="0:0:0.1"/>
+                </Transitions>
 			</Setter.Value>
 		</Setter>
-		<Setter Property="Background" Value="#fff"/>
+		<Setter Property="Background" Value="{Binding MainColorBrush}"/>
 		<Setter Property="Margin" Value="30, 20"/>
 		<Setter Property="CornerRadius" Value="130"/>
 		<Setter Property="ClipToBounds" Value="False"/>
@@ -72,10 +73,22 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
-	<Style Selector="Button:pointerover > Grid > Grid">
+	<Style Selector="Button.ItemTile > Border">
+		<Setter Property="CornerRadius" Value="130"/>
+		<Setter Property="Transitions">
+			<Setter.Value>
+				<Transitions>
+					<CornerRadiusTransition Property="CornerRadius" Duration="0:0:0.1"/>
+                </Transitions>
+            </Setter.Value>
+        </Setter>
+    </Style>
+        <Style Selector="Button.ItemTile:pointerover > Border">
+            <Setter Property="CornerRadius" Value="110"/>
+		<Setter Property="Background" Value="#2000"/>
 	</Style>
 	<Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-		<Setter Property="Background" Value="#eee"/>
+        <Setter Property="Background" Value="{Binding MainColorBrush}"/>
 	</Style>
 	<Style Selector="Button:pointerover > Grid > Image">
 	</Style>
@@ -86,7 +99,14 @@
 	<Style Selector="Button.Tile">
 		<Setter Property="Width" Value="280"/>
 		<Setter Property="Height" Value="280"/>
+		<Setter Property="Padding" Value="0"/>
 	</Style>
+    <Style Selector="Button.Tile:pointerover">
+        <Setter Property="Width" Value="280"/>
+        <Setter Property="Height" Value="280"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="CornerRadius" Value="110"/>
+    </Style>
 	<Style Selector="Button.openAnimation">
 	</Style>
 	<Style Selector="Button.openAnimation:pointerover /template/ ContentPresenter#PART_ContentPresenter">

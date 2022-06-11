@@ -31,11 +31,22 @@
     <ProjectReference Include="..\NativeWorker\NativeWorker.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <UpToDateCheckInput Remove="Styles\MetroStyle.axaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AvaloniaXaml Update="Styles\AndroidStyle.axaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </AvaloniaXaml>
+    <AvaloniaXaml Update="Styles\MetroStyle.axaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </AvaloniaXaml>
     <AvaloniaXaml Update="Styles\Win11.axaml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </AvaloniaXaml>
   </ItemGroup>
   <ItemGroup>
-    <UpToDateCheckInput Remove="Styles\MetroStyle.axaml" />
+    <None Update="Styles\TestStyle.axaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

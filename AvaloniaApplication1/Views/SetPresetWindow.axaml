@@ -5,5 +5,9 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="DesktopTiles.Views.SetPresetWindow"
         Title="SetPresetWindow">
-
+    <StackPanel>
+        <Label Content="Стиль"/>
+		<ComboBox x:Name="StylesCB" SelectionChanged="StylesCB_OnSelectionChanged">
+        </ComboBox>
+    </StackPanel>
 </Window>

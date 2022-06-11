@@ -30,26 +30,31 @@ namespace DesktopTiles.Views
 {
     public partial class MainWindow : Window
     {
+        public static MainWindow? Instance { get; private set; }
         ObservableCollection<Tile> tiles = new();
         public MainWindow()
         {
+            Instance = this;
             WindowInfo.Width = Screens.Primary.Bounds.Width;
             WindowInfo.Height = Screens.Primary.Bounds.Height;
             InitializeComponent();
 #if DEBUG
             this.AttachDevTools();
 #endif
-            //Styles.Add(AvaloniaRuntimeXamlLoader.Parse<Styles>(File.ReadAllText("D:\\Programming\\vs\\DesktopTiles\\AvaloniaApplication1\\Styles\\Win11.axaml")));
-            this.FindControl<ItemsControl>("tiles").Items = tiles;
             AttachingToDesktop();
             WindowInfo.MainWindow = this;
-            AddTiles();
         }
 
+        public MainWindow(IStyle style) : this()
+        {
+            Styles.Add(style);
+        }
 
-        private void InitializeComponent()
+        public void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+            this.FindControl<ItemsControl>("tiles").Items = tiles;
+            AddTiles();
         }
 
         private async void AttachingToDesktop()
@@ -62,7 +67,7 @@ namespace DesktopTiles.Views
                     var platformImpl = (WindowImpl)toplevel.PlatformImpl;
 
                     handle = platformImpl.Handle.Handle;
-                    await Task.Delay(1000);
+                    await Task.Delay(500);
                 }
 
                 Native.SetParent(handle, Native.FindShellWindow());
@@ -114,15 +119,21 @@ namespace DesktopTiles.Views
 
         }
 
-        private async void ShowDesktop(object? sender, RoutedEventArgs e)
+        public async void ShowDesktop(object? sender, RoutedEventArgs e)
         {
             this.FindControl<ContextMenu>("Menu").Close();
+            this.FindControl<Button>("BackButton").IsVisible = false;
+            this.FindControl<Button>("BackButton").InvalidateVisual();
+            this.FindControl<Button>("BackButton").InvalidateArrange();
+            this.FindControl<Button>("BackButton").InvalidateMeasure();
+            this.FindControl<Button>("BackButton").BeginBatchUpdate();
+            this.FindControl<Button>("BackButton").EndBatchUpdate();
 
             tiles.Clear();
             tiles.AddRange(TileUtil.GetTilesFormFolder(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)));
         }
 
-        private async void ShowStartup(object? sender, RoutedEventArgs e)
+        public async void ShowStartup(object? sender, RoutedEventArgs e)
         {
             this.FindControl<ContextMenu>("Menu").Close();
 
@@ -146,12 +157,11 @@ namespace DesktopTiles.Views
         private string presetPath = "";
         private async void SetPreset(object? sender, RoutedEventArgs e)
         {
-            //new SetPresetWindow().ShowDialog(this);
             presetPath = await (new OpenFolderDialog()).ShowAsync(this);
             ShowPreset(null, null);
         }
 
-        private void ShowPreset(object? sender, RoutedEventArgs e)
+        public void ShowPreset(object? sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(presetPath))
                 return;
@@ -166,10 +176,16 @@ namespace DesktopTiles.Views
             this.FindControl<ContextMenu>("Menu").Close();
         }
 
-        private void OnBackButtonClick(object? sender, RoutedEventArgs e)
+        public void OnBackButtonClick(object? sender, RoutedEventArgs e)
         {
             (sender as Button).IsVisible = false;
             ShowDesktop(null, null);
+        }
+
+        private void OpenSettings(object? sender, RoutedEventArgs e)
+        {
+            SetPresetWindow sw = new();
+            sw.Show();
         }
     }
 }

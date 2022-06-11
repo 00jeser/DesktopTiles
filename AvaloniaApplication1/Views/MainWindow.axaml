@@ -15,14 +15,19 @@
         Background="{x:Null}"
 		PointerReleased="BackgroundClick"
         >
-	<Window.Styles>
+	<Window.Resources>
+		<StyleInclude x:Key="Android" Source="/Styles/AndroidStyle.axaml"/>
+		<StyleInclude x:Key="Metro" Source="/Styles/MetroStyle.axaml"/>
+		<StyleInclude x:Key="Win11" Source="/Styles/Win11.axaml"/>
+    </Window.Resources>
+    <Window.Styles>
 		<StyleInclude Source="/Styles/DefaultStyle.axaml"/>
-		<StyleInclude Source="/Styles/AndroidStyle.axaml"/>
 	</Window.Styles>
 	<Window.ContextMenu>
 		<ContextMenu x:Name="Menu" Background="#AAAA">
 			<MenuItem Header="Показать рабочий стол" Click="ShowDesktop"/>
 			<MenuItem Header="Показать меню пуск" Click="ShowStartup"/>
+			<MenuItem Header="Настройки" Click="OpenSettings"/>
 			<MenuItem Click="ShowPreset">
 				<MenuItem.Header>
 					<Grid ColumnDefinitions="* *">
@@ -37,15 +42,8 @@
 		<vm:MainWindowViewModel/>
 	</Design.DataContext>
 	<Grid>
-
-		<ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10 10 10 60">
-			<ItemsControl x:Name="tiles">
-				<ItemsControl.ItemsPanel>
-					<ItemsPanelTemplate>
-						<!--<controls:TilesPanel Background="red" ElementSize="280" Spacing="2" x:Name="TilesPanel"/>-->
-						<WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal"/>
-					</ItemsPanelTemplate>
-				</ItemsControl.ItemsPanel>
+		<ScrollViewer Classes="TilesScrollViewer">
+			<ItemsControl Classes="TilesContainer" x:Name="tiles">
 				<ItemsControl.DataTemplates>
 					<DataTemplate DataType="models:TileItem">
 						<Button Classes="Tile ItemTile" Click="Button_OnClick" CommandParameter="{Binding}">

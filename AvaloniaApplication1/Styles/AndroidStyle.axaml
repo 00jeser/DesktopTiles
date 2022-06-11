@@ -120,7 +120,7 @@
 		<Setter Property="CornerRadius" Value="0"/>
 	</Style>
 	<Style Selector="Button.BackButton /template/ ContentPresenter#PART_ContentPresenter">
-        <Setter Property="Background" Value="#0fff"/>
+        <Setter Property="Background" Value="#fff"/>
     </Style>
 	<Style Selector="TextBlock.BackButtonText">
 		<Setter Property="Background" Value="#0fff"/>

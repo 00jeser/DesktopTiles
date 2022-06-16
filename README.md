@@ -2,8 +2,8 @@
 
 **DesktopTiles is an application for customizing shortcuts on your desktop**
 
-![](https://github.com/OOjeser/DesktopTiles/tree/master/readmes/Example1.png)
-![](https://github.com/OOjeser/DesktopTiles/tree/master/readmes/Example2.png)
+![demo](https://github.com/OOjeser/DesktopTiles/blob/master/readmes/Example1.png)
+![demo](https://github.com/OOjeser/DesktopTiles/blob/master/readmes/Example2.png)
 
 Installation:
 ---------------------

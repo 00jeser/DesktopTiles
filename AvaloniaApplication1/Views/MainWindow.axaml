@@ -41,9 +41,9 @@
 	<Design.DataContext>
 		<vm:MainWindowViewModel/>
 	</Design.DataContext>
-	<Grid>
-		<ScrollViewer Classes="TilesScrollViewer">
-			<ItemsControl Classes="TilesContainer" x:Name="tiles">
+	<Grid ClipToBounds="False">
+		<ScrollViewer ClipToBounds="False" Classes="TilesScrollViewer">
+			<ItemsControl ClipToBounds="False" Classes="TilesContainer" x:Name="tiles">
 				<ItemsControl.DataTemplates>
 					<DataTemplate DataType="models:TileItem">
 						<Button Classes="Tile ItemTile" Click="Button_OnClick" CommandParameter="{Binding}">

@@ -23,7 +23,14 @@ namespace DesktopTiles.Views
         {
             AvaloniaXamlLoader.Load(this);
             var StylesList = new List<string>{"Android", "Metro", "Win11"};
-            StylesList.AddRange(Directory.GetFiles(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + "\\Styles"));
+            try
+            {
+                StylesList.AddRange(Directory.GetFiles(Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + "\\Styles"));
+            }
+            catch (System.Exception)
+            {
+                
+            }
             this.FindControl<ComboBox>("StylesCB").Items = StylesList;
         }
 
@@ -41,6 +48,7 @@ namespace DesktopTiles.Views
                 "Win11" => (StyleInclude)MainWindow.Instance.Resources["Win11"],
                 _ => AvaloniaRuntimeXamlLoader.Parse<Styles>(File.ReadAllText(e.AddedItems[0].ToString())),
             })).Show();
+            File.WriteAllText("savedStyle", e.AddedItems[0].ToString());
 #pragma warning restore CS8604 // Возможно, аргумент-ссылка, допускающий значение NULL.
 #pragma warning restore CS8602 // Разыменование вероятной пустой ссылки.
 #pragma warning restore CS8600 // Преобразование литерала, допускающего значение NULL или возможного значения NULL в тип, не допускающий значение NULL.

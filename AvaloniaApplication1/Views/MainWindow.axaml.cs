@@ -42,12 +42,27 @@ namespace DesktopTiles.Views
             this.AttachDevTools();
 #endif
             AttachingToDesktop();
-            WindowInfo.MainWindow = this;
+            WindowInfo.MainWindow = this; 
+            try
+            {
+                var savedStyle = File.ReadAllText("savedStyle");
+                Styles.Add(savedStyle switch
+                {
+                    "Metro" => (IStyle)Resources["Metro"],
+                    "Android" => (IStyle)Resources["Android"],
+                    "Win11" => (IStyle)Resources["Win11"],
+                    _ => AvaloniaRuntimeXamlLoader.Parse<Styles>(File.ReadAllText(savedStyle))
+                });
+            }
+            catch (Exception)
+            {
+                Styles.Add((IStyle)Resources["Android"]);
+            }
         }
 
         public MainWindow(IStyle style) : this()
         {
-            Styles.Add(style);
+            Styles[1] = style;
         }
 
         public void InitializeComponent()

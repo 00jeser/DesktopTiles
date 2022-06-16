@@ -1,7 +1,22 @@
-**DesktopTiles - это приложение для кастомизации ярлыков на рабочем столе в Fluent Design стиле**
+[[Русская версия](https://github.com/OOjeser/DesktopTiles/tree/master/readmes/READMERu.md)]
 
-Установка:
+**DesktopTiles is an application for customizing shortcuts on your desktop**
+
+![](https://github.com/OOjeser/DesktopTiles/tree/master/readmes/Example1.png)
+![](https://github.com/OOjeser/DesktopTiles/tree/master/readmes/Example2.png)
+
+Installation:
 ---------------------
-1. откройте [список релизов](https://github.com/OOjeser/DesktopTiles/releases "Необязательная подсказка")
-2. скачайте Relese.zip поледней версии
-3. распакуйте и поместите DesktopTiles.exe в автозапуск
+0. Install [last .Net version (.Net Runtime or .Net SDK)](https://dotnet.microsoft.com/en-us/download "link to Microsoft.com")
+1. open [list of releases](https://github.com/OOjeser/DesktopTiles/releases "список релизов")
+2. download Relese.zip of last version
+3. unzip and put DesktopTiles.exe to startup
+	1. press Win + R
+	2. enter shell:startup
+	3. right-click -> create -> shortcut and enter path to unzipped DesktopTiles.exe
+
+
+Styles setup:
+- right-click on Desktop, press "настроки". Then you can select a style.
+- You can create your own style. [More...](https://github.com/OOjeser/DesktopTiles/tree/master/readmes/stylesRu.md) 
+
